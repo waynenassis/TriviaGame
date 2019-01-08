@@ -62,7 +62,7 @@ $(document).ready(function () {
     }
 
     function loadQandA() {
-        answered = false; // will allow timeRemaining to be pushed back to <h5> after round reset....else statement in function timer()
+        answered = false; // will allow timeRemaining to be pushed back to <h5> after round reset.
         timeRemaining = 20;
         intervalID = setInterval(timer, 1100);
         if (answered === false) {
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
     function incorrectAnswer() {
         incorrectAnswers++;
-        $('.timeRemaining').text("Your Correct!").css({
+        $('.timeRemaining').text("YOU MISSED THIS ONE!").css({
             
         });
         resetRound();
