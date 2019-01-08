@@ -1,0 +1,47 @@
+body {
+    background-image: url(../images/sportsbackround.jpg);
+    background-position: center;
+    
+  
+  
+}
+
+h2 {
+    font-size: 25px;
+    
+}
+
+.container {
+    text-align: center;
+    
+    
+    
+}
+
+ 
+
+  h3 {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 3px;
+  word-spacing: 4px;
+  margin-top: 45px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  line-height: 40px;
+}
+
+h4 {
+    font-family: 'Courier New', Courier, monospace;
+  font-size: 45px;
+  background-color: grey;
+  padding: 5px 0;
+  border-radius: 10px;
+}
+
+h5 {
+    font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  letter-spacing: 2px;
+  
+}
