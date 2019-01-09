@@ -4,10 +4,10 @@ $(document).ready(function () {
 
     var correctAnswers = 0;
     var incorrectAnswers = 0;
-    var unansweredQuestions = 0;
+    var neverAnswered = 0;
     var timeRemaining = 20;
     var intervalID;
-    var indexQandA = 0; //index to load a different question each round without the game reset or screen refresh
+    var index = 0; //index to load a different question each round without the game reset or screen refresh
     var answered = false; //variable to stop the timer if user has clicked an answer
     var correct;
     var triviaGame = [{
@@ -57,7 +57,7 @@ $(document).ready(function () {
         $('.start-button').remove();
         correctAnswers = 0;
         incorrectAnswers = 0;
-        unansweredQuestions = 0;
+        neverAnswered = 0;
         loadQandA();
     }
 
@@ -68,11 +68,11 @@ $(document).ready(function () {
         if (answered === false) {
             timer();
         }
-        correct = triviaGame[indexQandA].correct;
-        var question = triviaGame[indexQandA].question;
+        correct = triviaGame[index].correct;
+        var question = triviaGame[index].question;
         $('.question').html(question);
         for (var i = 0; i < 4; i++) {
-            var answer = triviaGame[indexQandA].answer[i];
+            var answer = triviaGame[index].answer[i];
             $('.answers').append('<h4 class= answersAll id=' + i + '>' + answer + '</h4>');
         }
 
@@ -80,11 +80,11 @@ $(document).ready(function () {
             var id = $(this).attr('id');
             if (id === correct) {
                 answered = true; // stops the timer
-                $('.question').text("THE ANSWER IS: " + triviaGame[indexQandA].answer[correct]);
+                $('.question').text("THE ANSWER IS: " + triviaGame[index].answer[correct]);
                 correctAnswer();
             } else {
                 answered = true; //stops the timer
-                $('.question').text("YOU CHOSE: " + triviaGame[indexQandA].answer[id] + "..... The Correct Answer Is: " + triviaGame[indexQandA].answer[correct]);
+                $('.question').text("YOU CHOSE: " + triviaGame[index].answer[id] + "..... The Correct Answer Is: " + triviaGame[index].answer[correct]);
                 incorrectAnswer();
             }
         });
@@ -94,7 +94,7 @@ $(document).ready(function () {
         if (timeRemaining === 0) {
             answered = true;
             clearInterval(intervalID);
-            $('.question').text("THE CORRECT ANSWER I: " + triviaGame[indexQandA].answer[correct]);
+            $('.question').text("THE CORRECT ANSWER I: " + triviaGame[index].answer[correct]);
             unAnswered();
         } else if (answered === true) {
             clearInterval(intervalID);
@@ -122,8 +122,8 @@ $(document).ready(function () {
     }
 
     function unAnswered() {
-        unansweredQuestions++;
-        $('.timeRemaining').text("You Forgot to Answer").css({
+        neverAnswered++;
+        $('.timeRemaining').text("You Forgot to Answer..Or Ran Out of Time").css({
             
         });
         resetRound();
@@ -131,9 +131,9 @@ $(document).ready(function () {
 
     function resetRound() {
         $('.answersAll').remove();
-        $('.answers').append('<img class=answerImage width="350" height="300" src="' + triviaGame[indexQandA].image + ' ">'); // adds answer image
-        indexQandA++; // increments index which will load next question when loadQandA() is called again
-        if (indexQandA < triviaGame.length) {
+        $('.answers').append('<img class=answerImage width="350" height="300" src="' + triviaGame[index].image + ' ">'); // adds answer image
+        index++; // increments index which will load next question when loadQandA() is called again
+        if (index < triviaGame.length) {
             setTimeout(function () {
                 loadQandA();
                 $('.answerImage').remove();
@@ -145,7 +145,7 @@ $(document).ready(function () {
                 $('.answerImage').remove();
                 $('.answers').append('<h4 class= answersAll end>CORRECT ANSWERS: ' + correctAnswers + '</h4>');
                 $('.answers').append('<h4 class= answersAll end>INCORRECT ANSWERS: ' + incorrectAnswers + '</h4>');
-                $('.answers').append('<h4 class= answersAll end>UNANSWERED QUESTIONS: ' + unansweredQuestions + '</h4>');
+                $('.answers').append('<h4 class= answersAll end>UNANSWERED QUESTIONS: ' + neverAnswered + '</h4>');
                 setTimeout(function () {
                     location.reload();
                 }, 5000);
